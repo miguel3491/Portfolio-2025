@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miguel Cano - IT Specialist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,79 +15,127 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f7ff 100%);
-            color: #1a1a1a;
+            font-family: "Space Grotesk", system-ui, sans-serif;
+            background: #0b1020;
+            color: #e8ecff;
             line-height: 1.6;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --ink: #e8ecff;
+            --muted: #b8c0ff;
+            --accent: #4dd3ff;
+            --accent-2: #8cffb5;
+            --dark: #0b1020;
+            --panel: rgba(16, 24, 48, 0.72);
+            --border: rgba(255, 255, 255, 0.08);
+            --shadow: 0 30px 80px rgba(4, 10, 24, 0.45);
+        }
+
+        .bg-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            inset: -20%;
+            background: radial-gradient(circle at 15% 20%, rgba(77, 211, 255, 0.25), transparent 45%),
+                        radial-gradient(circle at 85% 10%, rgba(140, 255, 181, 0.18), transparent 40%),
+                        radial-gradient(circle at 50% 90%, rgba(125, 110, 255, 0.2), transparent 45%);
+            filter: blur(40px);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .app {
             min-height: 100vh;
+            position: relative;
+            z-index: 2;
         }
 
         /* Header */
         header {
-            background: linear-gradient(135deg, #0077b6 0%, #023e8a 100%);
-            color: white;
-            padding: 60px 20px;
+            background: linear-gradient(120deg, rgba(14, 22, 45, 0.95), rgba(10, 14, 30, 0.7));
+            color: var(--ink);
+            padding: 90px 20px 70px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            animation: slideDown 0.6s ease-out;
+            box-shadow: var(--shadow);
+            animation: heroRise 0.8s ease-out;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(16px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        @keyframes slideDown {
+        @keyframes heroRise {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-20px) scale(0.98);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
         header h1 {
-            font-size: 48px;
+            font-family: "Space Grotesk", system-ui, sans-serif;
+            font-size: 54px;
             margin-bottom: 10px;
             font-weight: 700;
-            letter-spacing: -1px;
+            letter-spacing: -0.6px;
         }
 
         header .title {
-            font-size: 24px;
-            color: #00b4d8;
-            margin-bottom: 15px;
-            font-weight: 500;
+            font-size: 18px;
+            color: var(--accent);
+            margin-bottom: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
         }
 
         header .contact-info {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 40px;
             margin-top: 25px;
             flex-wrap: wrap;
             font-size: 14px;
+            color: var(--muted);
+            text-align: center;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Navigation */
         nav {
-            background: white;
-            padding: 15px 20px;
+            background: rgba(8, 12, 26, 0.9);
+            padding: 16px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(4, 8, 20, 0.35);
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 24px;
             flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
         }
 
         nav button {
             background: none;
             border: none;
-            color: #0077b6;
+            color: var(--muted);
             cursor: pointer;
             font-size: 16px;
             font-weight: 500;
@@ -95,13 +146,13 @@
         }
 
         nav button:hover {
-            background: #f0f9ff;
-            color: #023e8a;
+            background: rgba(77, 211, 255, 0.15);
+            color: var(--accent);
         }
 
         nav button.active {
-            background: #0077b6;
-            color: white;
+            background: linear-gradient(120deg, rgba(77, 211, 255, 0.3), rgba(140, 255, 181, 0.25));
+            color: var(--ink);
         }
 
         nav button::after {
@@ -111,7 +162,7 @@
             left: 50%;
             width: 0;
             height: 2px;
-            background: #00b4d8;
+            background: var(--accent);
             transform: translateX(-50%);
             transition: width 0.3s ease;
         }
@@ -130,12 +181,14 @@
         /* Sections */
         section {
             display: none;
-            padding: 60px 20px;
-            background: white;
-            margin: 20px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 70px 40px;
+            background: var(--panel);
+            margin: 30px 0;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
             animation: fadeIn 0.5s ease-in;
+            backdrop-filter: blur(20px);
         }
 
         section.active {
@@ -155,10 +208,11 @@
 
         /* Section Title */
         .section-title {
-            font-size: 36px;
-            color: #0077b6;
+            font-family: "Syne", sans-serif;
+            font-size: 38px;
+            color: var(--accent);
             margin-bottom: 40px;
-            border-bottom: 3px solid #00b4d8;
+            border-bottom: 3px solid var(--accent);
             padding-bottom: 15px;
             display: inline-block;
         }
@@ -167,7 +221,7 @@
         .about-content {
             font-size: 18px;
             line-height: 1.8;
-            color: #666;
+            color: #ccd5ff;
             margin-bottom: 30px;
             animation: slideInLeft 0.6s ease-out 0.1s backwards;
         }
@@ -207,7 +261,7 @@
         }
 
         .skill-category h3 {
-            color: #0077b6;
+            color: var(--accent);
             font-size: 22px;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -222,13 +276,13 @@
         }
 
         .skill-tag {
-            background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
-            color: white;
+            background: linear-gradient(135deg, rgba(77, 211, 255, 0.8) 0%, rgba(35, 110, 255, 0.75) 100%);
+            color: #04101e;
             padding: 12px 20px;
             border-radius: 25px;
             font-weight: 500;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 119, 182, 0.3);
+            box-shadow: 0 10px 20px rgba(15, 45, 90, 0.45);
             transition: all 0.3s ease;
             cursor: pointer;
         }
@@ -244,7 +298,7 @@
 
         /* Experience */
         .experience-item {
-            border-left: 4px solid #00b4d8;
+            border-left: 4px solid var(--accent);
             padding-left: 20px;
             margin-bottom: 35px;
             padding-bottom: 20px;
@@ -258,8 +312,8 @@
         }
 
         .experience-item:hover {
-            background: #f9f9f9;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: 0 20px 40px rgba(10, 20, 35, 0.45);
         }
 
         .experience-item:nth-child(1) { animation-delay: 0.1s; }
@@ -270,27 +324,27 @@
         .job-title {
             font-size: 22px;
             font-weight: 700;
-            color: #0077b6;
+            color: var(--accent);
             margin-bottom: 5px;
         }
 
         .company {
             font-size: 16px;
-            color: #00b4d8;
+            color: var(--accent-2);
             font-weight: 600;
             margin-bottom: 3px;
         }
 
         .duration {
             font-size: 14px;
-            color: #666;
+            color: #aab6e8;
             margin-bottom: 15px;
             font-style: italic;
         }
 
         .bullet-list {
             margin-left: 20px;
-            color: #666;
+            color: #c1c9ee;
             font-size: 15px;
             line-height: 1.8;
             display: none;
@@ -318,11 +372,11 @@
 
         /* Education */
         .education-item {
-            background: #f0f9ff;
+            background: rgba(12, 20, 42, 0.8);
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border-left: 4px solid #0077b6;
+            border-left: 4px solid var(--accent);
             animation: slideInUp 0.6s ease-out backwards;
             transition: all 0.3s ease;
         }
@@ -339,29 +393,29 @@
         .degree {
             font-size: 18px;
             font-weight: 700;
-            color: #0077b6;
+            color: var(--accent);
             margin-bottom: 5px;
         }
 
         .school {
             font-size: 16px;
-            color: #00b4d8;
+            color: var(--accent-2);
             font-weight: 600;
             margin-bottom: 5px;
         }
 
         .graduation {
             font-size: 14px;
-            color: #666;
+            color: #aab6e8;
             font-style: italic;
         }
 
         .cert-item {
-            background: linear-gradient(135deg, rgba(0, 180, 216, 0.1) 0%, rgba(0, 119, 182, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(77, 211, 255, 0.08) 0%, rgba(140, 255, 181, 0.08) 100%);
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 15px;
-            border-left: 4px solid #06d6a0;
+            border-left: 4px solid var(--accent-2);
             animation: slideInUp 0.6s ease-out backwards;
             transition: all 0.3s ease;
         }
@@ -377,20 +431,20 @@
         .cert-name {
             font-size: 18px;
             font-weight: 700;
-            color: #0077b6;
+            color: var(--accent);
             margin-bottom: 5px;
         }
 
         .cert-date {
             font-size: 14px;
-            color: #666;
+            color: #aab6e8;
         }
 
         /* Contact */
         .contact-section {
             font-size: 18px;
             line-height: 2;
-            color: #666;
+            color: #ccd5ff;
         }
 
         .contact-section p {
@@ -405,8 +459,8 @@
 
         .linktree-link {
             display: inline-block;
-            background: #0077b6;
-            color: white;
+            background: linear-gradient(120deg, rgba(77, 211, 255, 0.9), rgba(140, 255, 181, 0.9));
+            color: #07101f;
             padding: 12px 24px;
             border-radius: 5px;
             text-decoration: none;
@@ -419,8 +473,8 @@
         }
 
         .linktree-link:hover {
-            background: #023e8a;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(120deg, rgba(140, 255, 181, 0.95), rgba(77, 211, 255, 0.95));
+            box-shadow: 0 20px 30px rgba(4, 10, 24, 0.4);
             transform: translateY(-2px);
         }
 
@@ -432,21 +486,42 @@
         footer {
             text-align: center;
             padding: 30px 20px;
-            color: #666;
-            border-top: 2px solid #e0e0e0;
+            color: #aab6e8;
+            border-top: 1px solid var(--border);
             margin-top: 40px;
             font-size: 14px;
-            background: white;
+            background: rgba(8, 12, 26, 0.9);
+        }
+
+        .section-subtitle {
+            color: var(--accent);
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .contact-label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .expand-hint {
+            color: var(--muted);
+            margin-top: 10px;
+            font-size: 13px;
+            cursor: pointer;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             header h1 {
-                font-size: 32px;
+                font-size: 36px;
             }
 
             header .title {
-                font-size: 18px;
+                font-size: 14px;
+                letter-spacing: 2px;
             }
 
             .section-title {
@@ -470,10 +545,16 @@
                 gap: 15px;
                 font-size: 12px;
             }
+
+            section {
+                padding: 50px 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <canvas id="bg-canvas" class="bg-canvas"></canvas>
+    <div class="ambient-glow"></div>
     <div class="app">
         <header>
             <h1>Miguel Cano</h1>
@@ -584,7 +665,7 @@
                         <li>Participate in IT projects such as system upgrades, migrations, and infrastructure improvements</li>
                         <li>Administer and maintain user accounts, permissions, and group policies in Microsoft Azure, Microsoft Entra, and other enterprise systems</li>
                     </ul>
-                    <p style="color: #00b4d8; margin-top: 10px; font-size: 13px; cursor: pointer;">Click to expand details ↓</p>
+                    <p class="expand-hint">Click to expand details ↓</p>
                 </div>
 
                 <div class="experience-item" onclick="this.querySelector('.bullet-list').classList.toggle('expanded')">
@@ -597,7 +678,7 @@
                         <li>Provided Tier I, Tier II, and urgent technical support for servers, Microsoft 365 applications, printers, phones, and office equipment for 350+ onsite and remote users</li>
                         <li>Managed Apple device lifecycle using SimpleMDM and Apple Business Management, including deployment of self-service applications</li>
                     </ul>
-                    <p style="color: #00b4d8; margin-top: 10px; font-size: 13px; cursor: pointer;">Click to expand details ↓</p>
+                    <p class="expand-hint">Click to expand details ↓</p>
                 </div>
 
                 <div class="experience-item" onclick="this.querySelector('.bullet-list').classList.toggle('expanded')">
@@ -610,7 +691,7 @@
                         <li>Provided Tier I &amp; II support for 400+ onsite and remote end users, including the Executive C-Suite and CEO</li>
                         <li>Assisted team in migrating inventory data to Asset Panda for effective asset tracking</li>
                     </ul>
-                    <p style="color: #00b4d8; margin-top: 10px; font-size: 13px; cursor: pointer;">Click to expand details ↓</p>
+                    <p class="expand-hint">Click to expand details ↓</p>
                 </div>
 
                 <div class="experience-item" onclick="this.querySelector('.bullet-list').classList.toggle('expanded')">
@@ -622,7 +703,7 @@
                         <li>Provided Tier I &amp; II support for 200+ onsite and remote end users</li>
                         <li>Worked with Jamf MDM to track Apple devices and deploy self-service applications</li>
                     </ul>
-                    <p style="color: #00b4d8; margin-top: 10px; font-size: 13px; cursor: pointer;">Click to expand details ↓</p>
+                    <p class="expand-hint">Click to expand details ↓</p>
                 </div>
             </section>
 
@@ -630,7 +711,7 @@
             <section id="education">
                 <h2 class="section-title">Education &amp; Certifications</h2>
 
-                <h3 style="color: #0077b6; margin: 30px 0 20px 0;">Degrees</h3>
+                <h3 class="section-subtitle">Degrees</h3>
                 <div class="education-item">
                     <div class="degree">Bachelor&apos;s of Science - Computer Engineering</div>
                     <div class="school">CUNY New York City College of Technology</div>
@@ -643,11 +724,11 @@
                     <div class="graduation">Sep 2017 - Dec 2019</div>
                 </div>
 
-                <h3 style="color: #0077b6; margin: 30px 0 20px 0;">Certifications</h3>
+                <h3 class="section-subtitle">Certifications</h3>
                 <div class="cert-item">
                     <div class="cert-name">✓ TestOut Routing and Switching Pro Certification</div>
                     <div class="cert-date">Issued: Dec 2021</div>
-                    <p style="margin-top: 10px; color: #666; font-size: 14px;">Perform real-world tasks using the command line interface on Cisco routing and switching devices</p>
+                    <p style="margin-top: 10px; color: #aab6e8; font-size: 14px;">Perform real-world tasks using the command line interface on Cisco routing and switching devices</p>
                 </div>
             </section>
 
@@ -655,9 +736,9 @@
             <section id="contact">
                 <h2 class="section-title">Get In Touch</h2>
                 <div class="contact-section">
-                    <p><strong style="color: #0077b6;">📧 Email:</strong> miguelcano3491@gmail.com</p>
-                    <p><strong style="color: #0077b6;">📞 Phone:</strong> 347-593-2039</p>
-                    <p><strong style="color: #0077b6;">📍 Location:</strong> New York City, New York</p>
+                    <p><strong class="contact-label">📧 Email:</strong> miguelcano3491@gmail.com</p>
+                    <p><strong class="contact-label">📞 Phone:</strong> 347-593-2039</p>
+                    <p><strong class="contact-label">📍 Location:</strong> New York City, New York</p>
                     <a href="https://linktr.ee/miguel3491" class="linktree-link" target="_blank" rel="noopener noreferrer">View My Linktree</a>
                 </div>
             </section>
@@ -668,6 +749,7 @@
         </footer>
     </div>
 
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
     <script>
         const navButtons = document.querySelectorAll('.nav-btn');
         const sections = document.querySelectorAll('section');
@@ -694,6 +776,53 @@
                     this.style.transform = '';
                 }, 150);
             });
+        });
+
+        const canvas = document.getElementById('bg-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.z = 12;
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const geometry = new THREE.IcosahedronGeometry(5, 1);
+        const wireframe = new THREE.WireframeGeometry(geometry);
+        const lines = new THREE.LineSegments(
+            wireframe,
+            new THREE.LineBasicMaterial({ color: 0x4dd3ff, transparent: true, opacity: 0.35 })
+        );
+        scene.add(lines);
+
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particleCount = 900;
+        const positions = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 40;
+            positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particles = new THREE.Points(
+            particlesGeometry,
+            new THREE.PointsMaterial({ color: 0x8cffb5, size: 0.08 })
+        );
+        scene.add(particles);
+
+        const tick = () => {
+            lines.rotation.x += 0.0012;
+            lines.rotation.y += 0.0016;
+            particles.rotation.y -= 0.0008;
+            renderer.render(scene, camera);
+            requestAnimationFrame(tick);
+        };
+        tick();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
     </script>
 </body>
